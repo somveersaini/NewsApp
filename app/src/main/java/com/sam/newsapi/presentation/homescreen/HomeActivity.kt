@@ -1,4 +1,4 @@
-package com.sam.newsapi.presentation
+package com.sam.newsapi.presentation.homescreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

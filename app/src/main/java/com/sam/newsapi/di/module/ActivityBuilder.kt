@@ -1,6 +1,6 @@
 package com.sam.newsapi.di.module
 
-import com.sam.newsapi.presentation.HomeActivity
+import com.sam.newsapi.presentation.homescreen.HomeActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 

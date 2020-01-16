@@ -5,6 +5,7 @@ import com.sam.newsapi.data.newsapi.NewsRepository
 import com.sam.newsapi.data.newsapi.NewsRepositoryImpl
 import com.sam.newsapi.data.newsapi.datasource.local.db.NewsDatabase
 import com.sam.newsapi.data.newsapi.datasource.remote.NewsApiService
+import com.sam.newsapi.util.Utils
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -31,7 +32,7 @@ class DataModule {
         return Retrofit
             .Builder()
             .client(httpClient)
-            //.baseUrl(Utils.BASE_URL)
+            .baseUrl(Utils.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .build()
