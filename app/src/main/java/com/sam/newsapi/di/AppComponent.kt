@@ -2,10 +2,7 @@ package com.sam.newsapi.di
 
 import android.app.Application
 import com.sam.newsapi.NewsApiApplication
-import com.sam.newsapi.di.module.ActivityBuilder
-import com.sam.newsapi.di.module.AppModule
-import com.sam.newsapi.di.module.SchedulersModule
-import com.sam.newsapi.di.module.ViewModelModule
+import com.sam.newsapi.di.module.*
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -16,9 +13,12 @@ import javax.inject.Singleton
     modules = [
         AndroidInjectionModule::class,
         AppModule::class,
+        UiModule::class,
         ViewModelModule::class,
-        SchedulersModule::class,
-        ActivityBuilder::class]
+        FragmentBuilder::class,
+        ActivityBuilder::class,
+        DataModule::class,
+        SchedulersModule::class]
 )
 interface AppComponent {
     @Component.Builder

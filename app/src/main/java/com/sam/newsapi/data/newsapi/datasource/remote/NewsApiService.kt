@@ -8,10 +8,11 @@ import retrofit2.http.Query
 
 interface NewsApiService {
 
-    @GET("/v2/top-headlines")
+    @GET("v2/top-headlines")
     fun getNews(
         @Query("category") category: String,
-        @Query("apiKey") apiKey: String
+        @Query("apiKey") apiKey: String,
+        @Query("country") country: String
     ): Single<NewsModel>
 
 }

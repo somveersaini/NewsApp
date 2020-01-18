@@ -8,7 +8,7 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
-    val newsDatabase: NewsDatabase
+    private val newsDatabase: NewsDatabase
 ) : DataSource {
     override fun getNewsData(newsId: String): Single<NewsModel> {
         val newsEntitySingle = newsDatabase.newsDao().getNewsEntityByNewsId(newsId)

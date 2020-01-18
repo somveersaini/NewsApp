@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewsAPI</string>
+    <string name="generic_error_message">Somthing went wrong</string>
+    <string name="error_title">Oops!!</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
 </resources>

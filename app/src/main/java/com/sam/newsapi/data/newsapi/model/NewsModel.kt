@@ -18,8 +18,8 @@ data class Article(
     @SerializedName("description") val description: String,
     @SerializedName("url") val url: String,
     @SerializedName("published_at") val published_at: String,
-    @SerializedName("image_url") val urlToImage: String,
-    @SerializedName("content") val source: Source,
+    @SerializedName("urlToImage") val urlToImage: String,
+    @SerializedName("source") val source: Source,
     @SerializedName("content") val content: String
 ): Parcelable
 

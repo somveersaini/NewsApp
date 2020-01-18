@@ -7,13 +7,14 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(
-    val newsApiService: NewsApiService
+    private val newsApiService: NewsApiService
 ) : DataSource {
 
     override fun getNewsData(newsId: String): Single<NewsModel> {
         return newsApiService.getNews(
             newsId,
-            BuildConfig.NewsApiKey
+            BuildConfig.NewsApiKey,
+            "in"
         )
     }
 }
