@@ -7,17 +7,17 @@ import com.sam.newsapi.presentation.base.MviIntent
 sealed class HomeScreenIntent : MviIntent {
     object InitialIntent : HomeScreenIntent()
 
-    data class OnNewsItemClickIntent(
-        val nyNewsListItem: Article
+    data class OnArticleClickIntent(
+        val article: Article
     ) : HomeScreenIntent()
 
-    data class OnSectionItemClickIntent(
+    data class OnCategoryClickIntent(
         val category: Category
     ) : HomeScreenIntent()
 
-    object ErrorDailogCancelIntent : HomeScreenIntent()
+    object ErrorDialogCancelIntent : HomeScreenIntent()
 
     data class RefreshIntent(
-        val sectionList: List<Category>
+        val categoryList: List<Category>
     ) : HomeScreenIntent()
 }

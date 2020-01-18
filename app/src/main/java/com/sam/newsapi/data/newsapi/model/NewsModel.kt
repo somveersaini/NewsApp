@@ -17,7 +17,7 @@ data class Article(
     @SerializedName("title") val title: String,
     @SerializedName("description") val description: String,
     @SerializedName("url") val url: String,
-    @SerializedName("published_at") val published_at: String,
+    @SerializedName("publishedAt") val publishedAt: String,
     @SerializedName("urlToImage") val urlToImage: String,
     @SerializedName("source") val source: Source,
     @SerializedName("content") val content: String
@@ -27,6 +27,5 @@ data class Article(
 @Keep
 @Parcelize
 data class Source(
-    @SerializedName("author") val author: String,
-    @SerializedName("title") val title: String
+    @SerializedName("name") val name: String
 ): Parcelable

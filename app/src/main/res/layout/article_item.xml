@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="com.sam.newsapi.util.Utils"/>
         <variable
             name="article"
             type="com.sam.newsapi.data.newsapi.model.Article" />
@@ -47,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:fontFamily="sans-serif"
-                android:text="@{article.author}"
+                android:text="@{Utils.getSourceAndTime(article.source.name, article.publishedAt)}"
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -71,6 +72,8 @@
                 app:layout_constraintLeft_toLeftOf="@+id/right_guideline"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
+                app:urlToImage="@{article.urlToImage}"
+                app:cornerRadius="@{@dimen/corner_radius}"
                 tools:ignore="ContentDescription" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

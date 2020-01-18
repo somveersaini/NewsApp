@@ -1,14 +1,15 @@
 package com.sam.newsapi.presentation.homescreen
 
 import androidx.lifecycle.ViewModel
-import com.sam.newsapi.interactor.homescreen.HomeScreenActionProcessor
 import com.sam.newsapi.interactor.homescreen.HomeScreenAction
 import com.sam.newsapi.interactor.homescreen.HomeScreenAction.*
+import com.sam.newsapi.interactor.homescreen.HomeScreenActionProcessor
 import com.sam.newsapi.interactor.homescreen.HomeScreenResult
 import com.sam.newsapi.interactor.homescreen.HomeScreenResult.*
-import com.sam.newsapi.presentation.homescreen.HomeScreenIntent.*
-import com.sam.newsapi.presentation.homescreen.HomeScreenViewEffect.*
 import com.sam.newsapi.presentation.base.MviViewModel
+import com.sam.newsapi.presentation.homescreen.HomeScreenIntent.*
+import com.sam.newsapi.presentation.homescreen.HomeScreenViewEffect.OpenDetailsPageEffect
+import com.sam.newsapi.presentation.homescreen.HomeScreenViewEffect.RefreshEffect
 import com.sam.newsapi.util.notOfType
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
@@ -54,8 +55,8 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun effectFromResult(result: HomeScreenResult): HomeScreenViewEffect? {
         return when (result) {
-            is LoadHomeScreenResult.Success -> RefreshEffect(result.sectionList)
-            is NewsItemClickResult -> OpenDetailsPageEffect(result.nyNewsListItem)
+            is LoadHomeScreenResult.Success -> RefreshEffect(result.category)
+            is ArticleClickResult -> OpenDetailsPageEffect(result.article)
             else -> null
         }
     }
@@ -67,21 +68,21 @@ class HomeScreenViewModel @Inject constructor(
                     isRefreshing = false,
                     error = result.error
                 )
-                is LoadNewsListResult.Failure -> previousState.copy(
+                is LoadCategoryArticlesResult.Failure -> previousState.copy(
                     isRefreshing = false,
                     error = result.error
                 )
                 is LoadHomeScreenResult.Success -> previousState.copy(
                     isRefreshing = false,
-                    sectionList = result.sectionList
+                    categoryList = result.category
                 )
-                is LoadNewsListResult.InFlight -> previousState.copy(
+                is LoadCategoryArticlesResult.InFlight -> previousState.copy(
                     isRefreshing = true,
                     error = null
                 )
-                is LoadNewsListResult.Success -> previousState.updateSection(result.data.key).copy(
+                is LoadCategoryArticlesResult.Success -> previousState.updateCategory(result.data.key).copy(
                     isRefreshing = false,
-                    newsList = result.data.articles
+                    articleList = result.data.articles
                 )
                 is DialogCancelResult -> previousState.copy(
                     error = null
@@ -104,10 +105,10 @@ class HomeScreenViewModel @Inject constructor(
     private fun actionFromIntent(intent: HomeScreenIntent): HomeScreenAction {
         return when (intent) {
             is InitialIntent -> LoadHomeScreenAction
-            is OnNewsItemClickIntent -> OnNewsItemClickAction(intent.nyNewsListItem)
-            is OnSectionItemClickIntent -> LoadSectionNewsAction(intent.category.name)
-            ErrorDailogCancelIntent -> DialogCancelAction
-            is RefreshIntent -> RefreshAction(intent.sectionList)
+            is OnArticleClickIntent -> ArticleClickAction(intent.article)
+            is OnCategoryClickIntent -> CategoryClickAction(intent.category.name)
+            ErrorDialogCancelIntent -> DialogCancelAction
+            is RefreshIntent -> RefreshAction(intent.categoryList)
         }
     }
 

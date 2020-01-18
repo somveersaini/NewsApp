@@ -6,23 +6,23 @@ import com.sam.newsapi.presentation.base.MviViewState
 
 data class HomeScreenViewState(
     val isRefreshing: Boolean,
-    val newsList: List<Article>?,
-    var sectionList: List<Category>?,
+    val articleList: List<Article>?,
+    var categoryList: List<Category>?,
     val error: Throwable?
 ) : MviViewState {
 
-    fun updateSection(section: String): HomeScreenViewState {
+    fun updateCategory(category: String): HomeScreenViewState {
         val tempList = mutableListOf<Category>()
-        sectionList?.let { item ->
+        categoryList?.let { item ->
             item.forEach {
                 tempList.add(
                     Category(
-                        section == it.name,
+                        category == it.name,
                         it.name
                     )
                 )
             }
-            sectionList = tempList
+            categoryList = tempList
         }
         return this
     }
@@ -31,8 +31,8 @@ data class HomeScreenViewState(
         fun idle(): HomeScreenViewState {
             return HomeScreenViewState(
                 isRefreshing = true,
-                newsList = null,
-                sectionList = null,
+                articleList = null,
+                categoryList = null,
                 error = null
             )
         }

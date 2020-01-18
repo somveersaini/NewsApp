@@ -12,12 +12,18 @@
         tools:layout="@layout/fragment_home_screen">
         <action
             android:id="@+id/action_homeScreen_to_detailsPage"
-            app:destination="@id/detailsPageFragment" />
+            app:destination="@id/detailsPageFragment"
+            app:enterAnim="@anim/pop_in"
+            app:exitAnim="@anim/pop_out"
+            app:popEnterAnim="@anim/pop_in"
+            app:popExitAnim="@anim/pop_out"/>
     </fragment>
     <fragment
         android:id="@+id/detailsPageFragment"
         android:name="com.sam.newsapi.presentation.detailspage.DetailsPageFragment"
         android:label="details_page"
+        app:enterAnim="@anim/pop_in"
+        app:exitAnim="@anim/pop_out"
         tools:layout="@layout/fragment_details_page">
         <argument
             android:name="article"

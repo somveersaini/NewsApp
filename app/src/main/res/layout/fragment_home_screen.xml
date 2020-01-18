@@ -11,17 +11,17 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/newslist"
+            android:id="@+id/articleList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="2dp"
-            app:layout_constraintBottom_toTopOf="@+id/sectionlist"
+            app:layout_constraintBottom_toTopOf="@+id/categoryList"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/sectionlist"
+            android:id="@+id/categoryList"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             android:background="@color/white"

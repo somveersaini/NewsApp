@@ -1,7 +1,8 @@
 package com.sam.newsapi.presentation.homescreen
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.ActivityNavigator
 import com.sam.newsapi.R
 import dagger.android.AndroidInjection
 import dagger.android.DispatchingAndroidInjector
@@ -20,4 +21,9 @@ class HomeActivity : AppCompatActivity(), HasAndroidInjector {
     }
 
     override fun androidInjector() = dispatchingAndroidInjector
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        ActivityNavigator.applyPopAnimationsToPendingTransition(this)
+    }
 }

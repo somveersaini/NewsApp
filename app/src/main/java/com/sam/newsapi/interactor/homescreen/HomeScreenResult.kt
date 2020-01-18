@@ -1,31 +1,31 @@
 package com.sam.newsapi.interactor.homescreen
 
 import com.sam.newsapi.data.newsapi.model.Article
-import com.sam.newsapi.data.newsapi.model.NewsModel
 import com.sam.newsapi.data.newsapi.model.Category
+import com.sam.newsapi.data.newsapi.model.NewsModel
 import com.sam.newsapi.interactor.base.MviResult
 
 sealed class HomeScreenResult : MviResult {
     sealed class LoadHomeScreenResult : HomeScreenResult() {
         data class Success(
-            val sectionList: List<Category>
+            val category: List<Category>
         ) : LoadHomeScreenResult()
 
         data class Failure(val error: Throwable) : LoadHomeScreenResult()
     }
 
-    sealed class LoadNewsListResult : HomeScreenResult() {
+    sealed class LoadCategoryArticlesResult : HomeScreenResult() {
         data class Success(
             val data: NewsModel
-        ) : LoadNewsListResult()
+        ) : LoadCategoryArticlesResult()
 
-        data class Failure(val error: Throwable) : LoadNewsListResult()
+        data class Failure(val error: Throwable) : LoadCategoryArticlesResult()
 
-        object InFlight : LoadNewsListResult()
+        object InFlight : LoadCategoryArticlesResult()
     }
 
-    data class NewsItemClickResult(
-        val nyNewsListItem: Article
+    data class ArticleClickResult(
+        val article: Article
     ) : HomeScreenResult()
 
     object DialogCancelResult : HomeScreenResult()

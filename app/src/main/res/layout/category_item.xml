@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="sectionItem"
+            name="category"
             type="com.sam.newsapi.data.newsapi.model.Category" />
     </data>
 
@@ -29,9 +29,9 @@
                 android:fontFamily="sans-serif"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="@{sectionItem.name}"
+                android:text="@{category.name}"
                 android:textAllCaps="true"
-                android:textColor="@{sectionItem.isChecked ? @color/colorAccent : @color/colorPrimary}"
+                android:textColor="@{category.isChecked ? @color/colorAccent : @color/colorPrimary}"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

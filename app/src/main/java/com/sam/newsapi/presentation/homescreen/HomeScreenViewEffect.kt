@@ -6,7 +6,7 @@ import com.sam.newsapi.presentation.base.MviViewEffect
 
 sealed class HomeScreenViewEffect : MviViewEffect {
     data class RefreshEffect(
-        val sectionList: List<Category>
+        val categoryList: List<Category>
     ) : HomeScreenViewEffect()
 
     data class OpenDetailsPageEffect(

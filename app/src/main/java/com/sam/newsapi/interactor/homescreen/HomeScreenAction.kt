@@ -8,17 +8,17 @@ import com.sam.newsapi.interactor.base.MviAction
 sealed class HomeScreenAction : MviAction {
     object LoadHomeScreenAction : HomeScreenAction()
 
-    data class LoadSectionNewsAction(
-        val section: String
+    data class CategoryClickAction(
+        val category: String
     ) : HomeScreenAction()
 
-    data class OnNewsItemClickAction(
-        val nyNewsListItem: Article
+    data class ArticleClickAction(
+        val article: Article
     ) : HomeScreenAction()
 
     object DialogCancelAction : HomeScreenAction()
 
     data class RefreshAction(
-        val sectionList: List<Category>
+        val categoryList: List<Category>
     ) : HomeScreenAction()
 }

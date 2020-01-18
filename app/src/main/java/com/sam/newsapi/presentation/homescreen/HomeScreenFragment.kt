@@ -14,7 +14,8 @@ import com.sam.newsapi.data.newsapi.model.Article
 import com.sam.newsapi.data.newsapi.model.Category
 import com.sam.newsapi.presentation.base.MviBaseFragment
 import com.sam.newsapi.presentation.homescreen.HomeScreenIntent.*
-import com.sam.newsapi.presentation.homescreen.HomeScreenViewEffect.*
+import com.sam.newsapi.presentation.homescreen.HomeScreenViewEffect.OpenDetailsPageEffect
+import com.sam.newsapi.presentation.homescreen.HomeScreenViewEffect.RefreshEffect
 import com.sam.newsapi.presentation.homescreen.adapter.ArticleListAdapter
 import com.sam.newsapi.presentation.homescreen.adapter.CategoryListAdapter
 import com.sam.newsapi.util.doOn
@@ -72,18 +73,18 @@ class HomeScreenFragment :
     private fun setupView() {
         swiperefresh.setOnRefreshListener { refresh() }
 
-        newslist.layoutManager = LinearLayoutManager(this.requireContext())
-        (newslist.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        newslist.adapter = articleLisAdapter
+        articleList.layoutManager = LinearLayoutManager(this.requireContext())
+        (articleList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        articleList.adapter = articleLisAdapter
 
-        sectionlist.layoutManager =
+        categoryList.layoutManager =
             LinearLayoutManager(this.requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        (sectionlist.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-        sectionlist.adapter = categoryListAdapter
+        (categoryList.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        categoryList.adapter = categoryListAdapter
     }
 
     private fun refresh() {
-        viewState.sectionList?.let { intents.onNext(RefreshIntent(it)) }
+        viewState.categoryList?.let { intents.onNext(RefreshIntent(it)) }
     }
 
     private fun bind() {
@@ -109,11 +110,11 @@ class HomeScreenFragment :
             { hideLoader() }
         )
 
-        safeWith(state.newsList) {
+        safeWith(state.articleList) {
             updateNewsListList(it)
         }
 
-        safeWith(state.sectionList) {
+        safeWith(state.categoryList) {
             updateSectionList(it)
         }
         safeWith(state.error) {
@@ -126,7 +127,7 @@ class HomeScreenFragment :
 
     private fun handleViewEffects(effect: HomeScreenViewEffect) {
         when (effect) {
-            is RefreshEffect -> intents.onNext(RefreshIntent(effect.sectionList))
+            is RefreshEffect -> intents.onNext(RefreshIntent(effect.categoryList))
             is OpenDetailsPageEffect -> openDetailsPage(effect.article)
         }
     }
@@ -141,20 +142,22 @@ class HomeScreenFragment :
         val alertDialog = AlertDialog.Builder(this.requireContext())
             .setTitle(R.string.error_title)
             .setMessage(errorMessage)
-            .setNegativeButton(R.string.cancel) { _, _ -> intents.onNext(ErrorDailogCancelIntent) }
+            .setNegativeButton(R.string.cancel) { _, _ -> intents.onNext(ErrorDialogCancelIntent) }
             .setPositiveButton(R.string.retry) { _, _ ->
-                viewState.sectionList?.let {
-                    intents.onNext(
-                        RefreshIntent(it)
-                    )
+                viewState.categoryList?.let {
+                    intents.onNext(RefreshIntent(it))
                 }
             }
             .create()
         alertDialog.show()
     }
 
-    private fun hideLoader() { swiperefresh.isRefreshing = false }
+    private fun hideLoader() {
+        swiperefresh.isRefreshing = false
+    }
 
-    private fun showLoader() { if (!swiperefresh.isRefreshing) swiperefresh.isRefreshing = true }
+    private fun showLoader() {
+        if (!swiperefresh.isRefreshing) swiperefresh.isRefreshing = true
+    }
 
 }

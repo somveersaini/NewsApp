@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sam.newsapi.R
 import com.sam.newsapi.data.newsapi.model.Category
 import com.sam.newsapi.databinding.CategoryItemBinding
-import com.sam.newsapi.presentation.homescreen.HomeScreenIntent.OnSectionItemClickIntent
+import com.sam.newsapi.presentation.homescreen.HomeScreenIntent.OnCategoryClickIntent
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import javax.inject.Inject
@@ -18,9 +18,9 @@ class CategoryListAdapter @Inject constructor() :
     RecyclerView.Adapter<CategoryListAdapter.ViewHolder>() {
 
     private val categoryList = ArrayList<Category>()
-    private val categoryClickSubject = PublishSubject.create<OnSectionItemClickIntent>()
+    private val categoryClickSubject = PublishSubject.create<OnCategoryClickIntent>()
 
-    val categoryClickEvent: Observable<OnSectionItemClickIntent> = categoryClickSubject
+    val categoryClickEvent: Observable<OnCategoryClickIntent> = categoryClickSubject
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -29,11 +29,11 @@ class CategoryListAdapter @Inject constructor() :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val sectionItem = categoryList[position]
+        val category = categoryList[position]
         holder.binding?.root?.setOnClickListener {
-            categoryClickSubject.onNext(OnSectionItemClickIntent(sectionItem))
+            categoryClickSubject.onNext(OnCategoryClickIntent(category))
         }
-        holder.binding?.sectionItem = sectionItem
+        holder.binding?.category = category
     }
 
     override fun getItemCount() = categoryList.size
