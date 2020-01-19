@@ -10,9 +10,9 @@ import javax.inject.Inject
 class LocalDataSource @Inject constructor(
     private val newsDatabase: NewsDatabase
 ) : DataSource {
-    override fun getNewsData(newsId: String): Single<NewsModel> {
-        val newsEntitySingle = newsDatabase.newsDao().getNewsEntityByNewsId(newsId)
-        return newsEntitySingle.map { NewsModel("ok", it.news_list) }
+    override fun getNewsData(category: String): Single<NewsModel> {
+        val newsEntitySingle = newsDatabase.newsDao().getNewsEntityByNewsId(category)
+        return newsEntitySingle.map { NewsModel(category, it.news_list) }
     }
 
     fun insertNewsData(data: NewsModel) {

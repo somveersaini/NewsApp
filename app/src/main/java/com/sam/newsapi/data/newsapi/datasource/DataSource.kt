@@ -4,5 +4,5 @@ import com.sam.newsapi.data.newsapi.model.NewsModel
 import io.reactivex.Single
 
 interface DataSource {
-    fun getNewsData(newsId: String): Single<NewsModel>
+    fun getNewsData(category: String): Single<NewsModel>
 }

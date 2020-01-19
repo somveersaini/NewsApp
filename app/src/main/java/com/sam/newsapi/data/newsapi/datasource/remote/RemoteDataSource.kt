@@ -10,9 +10,9 @@ class RemoteDataSource @Inject constructor(
     private val newsApiService: NewsApiService
 ) : DataSource {
 
-    override fun getNewsData(newsId: String): Single<NewsModel> {
+    override fun getNewsData(category: String): Single<NewsModel> {
         return newsApiService.getNews(
-            newsId,
+            category,
             BuildConfig.NewsApiKey,
             "in"
         )
